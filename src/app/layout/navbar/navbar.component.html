@@ -1,0 +1,57 @@
+<div class="navbar bg-base-100 border-b border-gray-600">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <a class="btn btn-ghost text-xl">
+                <div class="border-1 bg-secondary logo p-2 rounded-xl" [routerLink]="['/']">
+                    CO
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="navbar-end flex align-items-center">
+        <div class="dropdown dropdown-end md:pe-4 lg:pe-4">
+            <div tabindex="0" role="button" >
+                @if (isAuthenticated) {
+                    <img [src]="" alt="user" class="rounded-full menu-icon w-8 h-8 lg:w-14 lg:h-14">
+                }@else {
+                <fa-icon [icon]="['fas', 'user']" class="menu-icon"></fa-icon>
+                }
+            </div>
+            <ul class="dropdown-content menu menu-lg bg-base-100 rounded-box z-10 w-52 p-2 shadow">
+                @if (!isAuthenticated){
+                <li>
+                    <button [routerLink]="['pages/login']"
+                    class="link">Login</button>
+                </li>
+                }
+                @if (!isAuthenticated){
+                <li>
+                    <button [routerLink]="['pages/singUp']"
+                    class="link">SingUp</button>
+                </li>
+                }
+                @if (isAuthenticated){
+                <li>
+                    <button [routerLink]="['pages/perfil']"
+                    class="text-gray-400 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">Perfil</button>
+                    @if (isUser) {
+                        <button [routerLink]="['pages/misCompras']"
+                        class="text-gray-400 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">Mis Compras</button>
+                    }
+                </li>
+                @if (isAuthenticated) {
+                    <button (click)="CerrarSesion()"
+                    class="text-gray-400 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">Cerrar Sesion</button>
+                    }
+                }
+            </ul>
+        </div>
+        @if (isUser) {
+        <div class="dropdown dropdown-end me-2" [routerLink]="['pages/carrito']">
+            <div tabindex="0" role="button" >
+                <fa-icon [icon]="['fas', 'cart-shopping']" class="menu-icon"></fa-icon>
+            </div>
+        </div>
+    }
+    </div>
+</div>
