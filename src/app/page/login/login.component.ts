@@ -34,7 +34,7 @@ export default class LoginComponent implements OnInit{
           localStorage.setItem('nombre', data.nombre)
           localStorage.setItem('rol', data.rol)
           localStorage.setItem('img', data.imgUrl)
-          this.router.navigate(['login']).then(() => {
+          this.router.navigate(['perfil/userlist']).then(() => {
             window.location.reload();
             });
         }else{

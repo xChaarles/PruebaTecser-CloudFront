@@ -10,6 +10,16 @@ export const routes: Routes = [
         loadComponent: () => import('./page/registrar/registrar.component')
     },
     {
+        path: 'perfil',
+        loadComponent: () => import('./page/perfil/perfil.component'),
+        children: [
+            {
+                path: 'userlist',
+                loadComponent: () => import('./page/perfil/usuarios/usuarios.component')
+            }
+        ]
+    },
+    {
         path: '',
         redirectTo: 'login',
         pathMatch: 'full'
