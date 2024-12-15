@@ -20,7 +20,7 @@ export class UserService {
    logOut(): void{
     if(typeof localStorage !== 'undefined'){
       localStorage.removeItem('token')
-      localStorage.removeItem('role')
+      localStorage.removeItem('rol')
     }
   }
 
@@ -34,7 +34,7 @@ export class UserService {
 
   isAdmin(): boolean{
     if(typeof localStorage !== 'undefined'){
-      const role = localStorage.getItem('role');
+      const role = localStorage.getItem('rol');
       return role == "ADMIN";
     }
     return false;
@@ -42,7 +42,7 @@ export class UserService {
 
   isUser(): boolean{
     if(typeof localStorage !== 'undefined'){
-      const role = localStorage.getItem('role');
+      const role = localStorage.getItem('rol');
       return role == "USER";
     }
     return false;
