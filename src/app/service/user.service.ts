@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -19,6 +19,22 @@ export class UserService {
   registrar(formData:any):Observable<any>{
     const url = `${this.api}/auth/registrar`
     return this.http.post<any>(url, formData)
+  }
+
+  getAllUser( token: string):Observable<any>{
+    const url = `${this.api}/adminuser/getallUser`
+    const headers = new HttpHeaders ({
+      'Authorization' :`Bearer ${token}`
+    });
+    return this.http.get<any>(url, {headers})
+  }
+
+  crearUserAdmin(formData:any, token:string):Observable<any>{
+    const url = `${this.api}/admin/registrar`
+    const headers = new HttpHeaders ({
+      'Authorization' :`Bearer ${token}`
+    });
+    return this.http.post<any>(url, formData, {headers})
   }
 
    //Metodoos de autenticacion

@@ -11,16 +11,17 @@ import { UserService } from '../../service/user.service';
   styleUrl: './registrar.component.css'
 })
 export default class RegistrarComponent implements OnInit {
-
-  email: string;
-  password: string;
+  
   mensaje: string;
+  isAuthenticated:boolean = false;
+  isAdmin:boolean = false;
+  isUser:boolean = false;
 
   formData: any = {
     nombre: '',
     street: '',
     email: '',
-    imgUurl: '',
+    imgUrl: '',
     fecha: '',
     estado:'',
     password: '',
@@ -28,6 +29,7 @@ export default class RegistrarComponent implements OnInit {
   };
 
   selectedOption: string = '';
+  selectedOption1: string = '';
   errorMessage:string
 
   constructor( private userService:UserService,
@@ -35,7 +37,9 @@ export default class RegistrarComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    
+    this.isAuthenticated = this.userService.isAuthenticated();
+    this.isAdmin = this.userService.isAdmin();
+    this.isUser = this.userService.isUser();  
   }
 
   registrar(){
@@ -45,7 +49,7 @@ export default class RegistrarComponent implements OnInit {
     }
 
     if(this.selectedOption != "" ){
-      this.formData.role = this.selectedOption
+      this.formData.estado = this.selectedOption
     }else{
       this.showError("Por favor seleccione su estado")
       return;
@@ -57,6 +61,7 @@ export default class RegistrarComponent implements OnInit {
     }
 
     this.formData.rol = "USER"
+    console.log(this.formData)
     this.userService.registrar(this.formData).subscribe(
       data => {
         if(data.statuscode == 200)
@@ -64,6 +69,36 @@ export default class RegistrarComponent implements OnInit {
             window.location.reload();
             });
       })
+  }
+
+  crearAdmin(){
+    if(!this.formData.nombre || !this.formData.street || !this.formData.email || !this.formData.imgUrl ||
+      !this.formData.fecha || !this.formData.password){
+      this.showError("Por favor, rellene todos los campos")
+    }
+
+    if(this.selectedOption != "" ){
+      this.formData.estado = this.selectedOption
+    }else{
+      this.showError("Por favor seleccione su estado")
+      return;
+    }
+
+    if(this.selectedOption1 != "" ){
+      this.formData.rol = this.selectedOption1
+    }else{
+      this.showError("Por favor seleccione su estado")
+      return;
+    }
+    const token:any = localStorage.getItem('token')
+    this.userService.crearUserAdmin(this.formData, token).subscribe(
+      data => {
+        if(data.statuscode == 200)
+          this.router.navigate(['perfil/userlist']).then(() => {
+            window.location.reload();
+            });
+      })
+
   }
 
   showError(message: string) {
