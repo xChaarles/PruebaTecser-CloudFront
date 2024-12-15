@@ -16,6 +16,10 @@ export const routes: Routes = [
             {
                 path: 'userlist',
                 loadComponent: () => import('./page/perfil/usuarios/usuarios.component')
+            },
+            {
+                path: 'updateUser/:id',
+                loadComponent: () => import('./page/perfil/update-user/update-user.component')
             }
         ]
     },
