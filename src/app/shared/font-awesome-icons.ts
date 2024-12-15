@@ -1,5 +1,5 @@
-import { faCartShopping, faClipboard, faFile, faHome, faList, faMoneyBill, faMoneyBill1Wave, faTable, faTruckFast, faUser, faWallet } from "@fortawesome/free-solid-svg-icons";
-import { faDropbox, faFacebook, faInstagram, faProductHunt, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faCartShopping, faCircle, faClipboard, faEnvelope, faEnvelopeCircleCheck, faFile, faHome, faList, faMoneyBill, faMoneyBill1Wave, faPhoneVolume, faSquare, faTable, faTruckFast, faUser, faWallet } from "@fortawesome/free-solid-svg-icons";
+import { faDropbox, faFacebook, faInstagram, faProductHunt, faSquareInstagram, faSquareTwitter, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { IconDefinition } from "@fortawesome/angular-fontawesome";
 
 export const fontAwesomeIcons: IconDefinition[] = [
@@ -7,10 +7,13 @@ export const fontAwesomeIcons: IconDefinition[] = [
     faCartShopping,
     faTruckFast,
     faYoutube,
+    faSquareInstagram,
     faInstagram,
     faFacebook,
-    faTwitter,
-    faWallet,
+    faSquareTwitter,
+    faTiktok,
+    faEnvelopeCircleCheck,
+    faPhoneVolume,
     faHome,
     faFile,
     faTable,

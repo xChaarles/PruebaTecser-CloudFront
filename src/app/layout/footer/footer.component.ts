@@ -15,6 +15,7 @@ export class FooterComponent implements OnInit {
   isAuthenticated:boolean = false;
   isAdmin:boolean = false;
   isUser:boolean = false;
+  correo = "info@tecsersas.com"
 
   constructor(private userService:UserService,
               private router:Router){}
