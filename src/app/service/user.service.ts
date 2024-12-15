@@ -37,6 +37,14 @@ export class UserService {
     return this.http.post<any>(url, formData, {headers})
   }
 
+  deleteUser(id:string, token:string):Observable<any>{
+    const url = `${this.api}/admin/deleteUser/${id}`
+    const headers = new HttpHeaders ({
+      'Authorization' :`Bearer ${token}`
+    });
+    return this.http.delete<any>(url, {headers})
+  }
+
    //Metodoos de autenticacion
    logOut(): void{
     if(typeof localStorage !== 'undefined'){

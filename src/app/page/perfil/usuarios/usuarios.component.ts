@@ -38,13 +38,24 @@ export default class UsuariosComponent implements OnInit {
     const token: any = localStorage.getItem('token')
     this.userService.getAllUser(token).subscribe(
       data => {
-        console.log(data)
         this.user = data.userList
         this.totalUsers = this.user.length;
         this.totalPaginas = Math.ceil(this.totalUsers / this.pageSize);
         this.updatePaginatedUsers()
       }
     )
+  }
+
+  deleteUser(id:string){
+    const confirmDelete = confirm("Estas seguro de Eliminar este Usuario?")
+    if(confirmDelete){
+      const token:any = localStorage.getItem('token');
+      this.userService.deleteUser(id, token).subscribe(
+        data => {
+          if(data.statuscode == 200) this.getUseer();
+        } 
+      )
+    }
   }
 
   updatePaginatedUsers() {
