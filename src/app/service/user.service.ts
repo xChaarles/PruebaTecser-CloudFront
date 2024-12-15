@@ -16,6 +16,11 @@ export class UserService {
     return this.http.post<any>(url, {email, password})
   }
 
+  registrar(formData:any):Observable<any>{
+    const url = `${this.api}/auth/registrar`
+    return this.http.post<any>(url, formData)
+  }
+
    //Metodoos de autenticacion
    logOut(): void{
     if(typeof localStorage !== 'undefined'){
@@ -47,4 +52,6 @@ export class UserService {
     }
     return false;
   }
+
+ 
 }

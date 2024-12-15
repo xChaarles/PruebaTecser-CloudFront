@@ -35,7 +35,8 @@ export class NavbarComponent implements OnInit {
 
   CerrarSesion(): void{
     this.userService.logOut();
-    localStorage.removeItem('img_url');
+    localStorage.removeItem('img');
+    localStorage.removeItem('nombre')
     this.isAuthenticated = false;
     this.isAdmin = false;
     this.isUser = false;

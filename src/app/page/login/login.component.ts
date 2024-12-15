@@ -15,6 +15,7 @@ export default class LoginComponent implements OnInit{
 
   email: string;
   password: string;
+  mensaje: string;
 
   constructor(private userService:UserService,
               private router:Router
@@ -27,17 +28,18 @@ export default class LoginComponent implements OnInit{
   login(){
     this.userService.login(this.email, this.password).subscribe(
       data => {
-        console.log(data)
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('email', data.eemail)
-        localStorage.setItem('rol', data.rol)
-        localStorage.setItem('img', data.imgUrl)
-        this.router.navigate(['login']).then(() => {
-          window.location.reload();
-          });
-      },
-      error => {
-
+        if(data.statuscode == 200){
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('email', data.eemail)
+          localStorage.setItem('nombre', data.nombre)
+          localStorage.setItem('rol', data.rol)
+          localStorage.setItem('img', data.imgUrl)
+          this.router.navigate(['login']).then(() => {
+            window.location.reload();
+            });
+        }else{
+          this.mensaje = 'Usuario o Contraseña Incorrecta'
+        }
       }
     )
   }

@@ -1,0 +1,61 @@
+<div class="lg:pt-16 pt-4 pb-10">
+    <div class="flex flex-col bg-gray-200 rounded-lg shadow-lg shadow-gray-600 overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+        <div class="flex flex-col justify-center items-center">
+            <div class="w-full p-8">
+                <div class="flex flex-col justify-center items-center">
+                    <h1 class="text-black text-2xl">Registrar</h1>
+                    <h3 class="text-red-600 text-lg">{{ mensaje }}</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-x-10 pl-10 pr-10">
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo</label>
+                        <input [(ngModel)]="formData.nombre" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="nombre">
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Direccion<a href=""></a></label>
+                        <input [(ngModel)]="formData.street" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Imagen<a href=""></a></label>
+                        <input [(ngModel)]="formData.imgUrl" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Fecha<a href=""></a></label>
+                        <input [(ngModel)]="formData.fecha" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="date">                        
+                    </div>
+                    <div class=" mt-4 ">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email<a href=""></a></label>
+                        <input [(ngModel)]="formData.email" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="email">                        
+                    </div>
+                    <div class=" mt-4 ">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña<a href=""></a></label>
+                        <input [(ngModel)]="formData.password" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="password">                        
+                    </div>
+                    <div class="flex flex-col mt-4">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Estado<a href=""></a></label>
+                        </div>
+                        <div class="space-x-4 pt-2">
+                            <!-- Opción 1 -->
+                            <label class="inline-flex items-center cursor-pointer">
+                              <input type="radio" name="option" [(ngModel)]="selectedOption" value="USER" class="form-radio text-blue-600 h-5 w-5">
+                              <span class="ml-2 text-gray-700">Aprovado</span>
+                            </label>
+                        
+                            <!-- Opción 2 -->
+                            <label class="inline-flex items-center cursor-pointer">
+                              <input type="radio" name="option" [(ngModel)]="selectedOption" value="ADMIN" class="form-radio text-blue-600 h-5 w-5">
+                              <span class="ml-2 text-gray-700">Rechazado</span>
+                            </label>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="flex rounded-3xl bg-cyan-400 w-80 h-12 mb-10 border-b-2 border-gray-800 shadow-lg shadow-gray-600 items-center justify-center btn hover:bg-cyan-500">
+                <button (click)="registrar()" class="flex item-center text-xl text-bold text-white">
+                    Registrar
+                </button>
+            </div>
+        </div>
+    </div>  
+</div>
