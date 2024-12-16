@@ -20,6 +20,10 @@ export const routes: Routes = [
             {
                 path: 'updateUser/:id',
                 loadComponent: () => import('./page/perfil/update-user/update-user.component')
+            },
+            {
+                path: 'detalleUser/:id',
+                loadComponent: () => import('./page/perfil/detalle-user/detalle-user.component')
             }
         ]
     },

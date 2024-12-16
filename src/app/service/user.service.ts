@@ -61,6 +61,11 @@ export class UserService {
     return this.http.delete<any>(url, {headers})
   }
 
+  BusquedaUser(nombre:string):Observable<any>{
+    const url = `${this.api}/public/busqueda?nombre=${nombre}`
+    return this.http.get<any>(url)
+  }
+
    //Metodoos de autenticacion
    logOut(): void{
     if(typeof localStorage !== 'undefined'){

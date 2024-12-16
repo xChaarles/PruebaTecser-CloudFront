@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [RouterModule, FontAwesomeModule],
+  imports: [RouterModule, FontAwesomeModule, FormsModule],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
@@ -18,6 +19,8 @@ export default class UsuariosComponent implements OnInit {
   paginaXUsers:any[] = [];
   totalUsers:number;
   totalPaginas:number;
+
+  nombre:string;
 
   isAuthenticated:boolean = false;
   isAdmin:boolean = false;
@@ -44,6 +47,19 @@ export default class UsuariosComponent implements OnInit {
         this.updatePaginatedUsers()
       }
     )
+  }
+
+  busquedaUser(){
+    if (this.nombre.trim()) {
+      this.userService.BusquedaUser(this.nombre).subscribe(
+        data => {
+          this.user = data.userList
+          this.updatePaginatedUsers()
+        }
+      )
+    } else {
+      console.log('El campo de búsqueda está vacío.');
+    }
   }
 
   deleteUser(id:string){

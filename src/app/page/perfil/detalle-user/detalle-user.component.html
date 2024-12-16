@@ -1,0 +1,36 @@
+<div class="flex items-center justify-center h-screen bg-gray-50">
+    <div class="w-full bg-gray-100 p-6 rounded-lg shadow-lg m-4">
+      <!-- Encabezado con fondo -->
+      <div class="relative">
+        <!-- Imagen de fondo -->
+        <div class="h-40 bg-cover bg-center rounded-t-lg backdrop-blur-2xl"
+             [ngStyle]="{ 'background-image': 'url(' + userData.imgUrl + ')' }"></div>
+        <div class="absolute -bottom-12 left-6">
+          <img
+            class="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+            [src]="userData.imgUrl"
+            alt="Foto de perfil"
+          />
+        </div>
+      </div>
+  
+      <!-- Contenido principal -->
+      <div class="mt-14 text-center">
+        <!-- Nombre y título -->
+        <h2 class="text-2xl font-bold text-gray-800">{{ userData.nombre }}</h2>
+        <p class="text-gray-600 text-sm">{{ userData.email }}</p>
+        <!-- Ubicación -->
+        <p class="mt-1 text-sm text-gray-500">{{ userData.street }}</p>
+      </div>
+  
+      <!-- Información adicional -->
+      <div class="mt-4 flex justify-center space-x-4">
+        <!-- Portafolio -->
+        <p class="text-blue-500 text-sm font-medium">Mi Estado</p>
+        <span class="text-gray-400">|</span>
+        <!-- Contactos -->
+        <p class="text-sm text-gray-500">{{ userData.estado }}</p>
+      </div>
+    </div>
+  </div>
+  
