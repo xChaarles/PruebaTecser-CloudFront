@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 import { UserService } from '../../service/user.service';
+import Swal from 'sweetalert2'
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -34,14 +36,37 @@ export default class LoginComponent implements OnInit{
           localStorage.setItem('nombre', data.nombre)
           localStorage.setItem('rol', data.rol)
           localStorage.setItem('img', data.imgUrl)
-          this.router.navigate(['perfil/userlist']).then(() => {
-            window.location.reload();
-            });
+          this.alert()
+          setTimeout(() => {
+            this.router.navigate(['perfil/userlist']).then(() => {
+              window.location.reload();
+              });
+          }, 3000);
         }else{
-          this.mensaje = 'Usuario o Contraseña Incorrecta'
+          this.error();
         }
       }
     )
+  }
+
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Contraseña o Usuario no validos.",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  alert(){
+    const nombre = localStorage.getItem('nombre')
+    Swal.fire({
+      icon: 'success',
+      title: 'Incio de Sesion',
+      text: `Bienvenido de vuelta ${nombre}`,
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
 }

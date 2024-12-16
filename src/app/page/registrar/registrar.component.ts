@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../service/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrar',
@@ -45,13 +46,13 @@ export default class RegistrarComponent implements OnInit {
   registrar(){
     if(!this.formData.nombre || !this.formData.street || !this.formData.email || !this.formData.imgUrl ||
       !this.formData.fecha || !this.formData.password){
-      this.showError("Por favor, rellene todos los campos")
+        this.info()
     }
 
     if(this.selectedOption != "" ){
       this.formData.estado = this.selectedOption
     }else{
-      this.showError("Por favor seleccione su estado")
+      this.info()
       return;
     }
 
@@ -61,51 +62,82 @@ export default class RegistrarComponent implements OnInit {
     }
 
     this.formData.rol = "USER"
-    console.log(this.formData)
     this.userService.registrar(this.formData).subscribe(
       data => {
-        if(data.statuscode == 200)
-          this.router.navigate(['login']).then(() => {
-            window.location.reload();
-            });
+        if(data.statuscode == 200){
+          this.alert();
+          setTimeout(() => {
+            this.router.navigate(['login']).then(() => {
+              window.location.reload();
+              });
+          }, 3000);
+        }else {
+          this.error();
+        }
       })
   }
 
   crearAdmin(){
     if(!this.formData.nombre || !this.formData.street || !this.formData.email || !this.formData.imgUrl ||
       !this.formData.fecha || !this.formData.password){
-      this.showError("Por favor, rellene todos los campos")
+      this.info()
     }
 
     if(this.selectedOption != "" ){
       this.formData.estado = this.selectedOption
     }else{
-      this.showError("Por favor seleccione su estado")
+      this.info()
       return;
     }
 
     if(this.selectedOption1 != "" ){
       this.formData.rol = this.selectedOption1
     }else{
-      this.showError("Por favor seleccione su estado")
+      this.info()
       return;
     }
     const token:any = localStorage.getItem('token')
     this.userService.crearUserAdmin(this.formData, token).subscribe(
       data => {
-        if(data.statuscode == 200)
-          this.router.navigate(['perfil/userlist']).then(() => {
-            window.location.reload();
-            });
+        if(data.statuscode == 200){
+          this.alert();
+          setTimeout(() => {
+            this.router.navigate(['perfil/userlist']).then(() => {
+              window.location.reload();
+              });
+          }, 3000);
+        }else {
+          this.error();
+        }
       })
-
   }
 
-  showError(message: string) {
-    this.errorMessage = message;
-    setTimeout(() => {
-      this.errorMessage = ''; // Borrar el mensaje de error después del tiempo especificado
-    }, 3000);
+  info(){
+    Swal.fire({
+      icon: "info",
+      title: "Porfavor llena todos los campos.",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Opss...",
+      text:"Ocurrio un error al hacer el registro",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+  
+  alert(){
+    Swal.fire({
+      icon: 'success',
+      title: 'Registro Exitoso',
+      text: `El usuario ${this.formData.nombre} se ah registrado exitosamente`,
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
 }

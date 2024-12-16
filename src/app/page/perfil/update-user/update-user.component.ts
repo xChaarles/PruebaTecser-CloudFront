@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-user',
@@ -12,8 +13,6 @@ import { FormsModule } from '@angular/forms';
 })
 export default class UpdateUserComponent implements OnInit {
 
-  mensaje: string;
-
   isAuthenticated:boolean = false;
   isAdmin:boolean = false;
   isUser:boolean = false;
@@ -22,8 +21,6 @@ export default class UpdateUserComponent implements OnInit {
   
   roles:any = {};
   id:any;
-  selectedOption: string;
-  selectedOption1: string;
 
   constructor(private userService:UserService,
               private router:Router,
@@ -57,23 +54,50 @@ export default class UpdateUserComponent implements OnInit {
 
     if(!this.userData.nombre || !this.userData.street || !this.userData.email || !this.userData.imgUrl ||
       !this.userData.fecha || !this.userData.estado || !this.userData.rol ){
-      this.showError("Por favor, rellene todos los campos")
+      this.info()
     }
 
     this.userService.updateUser(this.id, this.userData,  token).subscribe(
       data=> {
         if (data.statuscode = 200) { 
-          this.router.navigate(['/perfil/userlist']) }
+          this.alert()
+          setTimeout(() => {
+            this.router.navigate(['perfil/userlist']).then(() => {
+              window.location.reload();
+              });
+          }, 3000); 
+        }
       }
     )
 
   }
 
-  showError(message: string) {
-    this.mensaje = message;
-    setTimeout(() => {
-      this.mensaje = ''; // Borrar el mensaje de error después del tiempo especificado
-    }, 3000);
-  }
-
+  info(){
+      Swal.fire({
+        icon: "info",
+        title: "Porfavor llena todos los campos.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  
+    error(){
+      Swal.fire({
+        icon: "error",
+        title: "Opss...",
+        text:"Ocurrio un error al hacer el registro",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    
+    alert(){
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro Exitoso',
+        text: `El usuario ${this.userData.nombre} se ah Actualizado exitosamente`,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
 }

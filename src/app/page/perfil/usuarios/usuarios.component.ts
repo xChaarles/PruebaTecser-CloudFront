@@ -3,6 +3,7 @@ import { UserService } from '../../../service/user.service';
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -53,12 +54,20 @@ export default class UsuariosComponent implements OnInit {
     if (this.nombre.trim()) {
       this.userService.BusquedaUser(this.nombre).subscribe(
         data => {
-          this.user = data.userList
-          this.updatePaginatedUsers()
+          if(data.statuscode == 200){
+            this.success()
+            setTimeout(() => {
+              this.user = data.userList
+              this.updatePaginatedUsers()
+            }, 2000);
+          }
         }
       )
     } else {
-      console.log('El campo de búsqueda está vacío.');
+      this.info();
+      setTimeout(() => {
+        this.getUseer();
+      },2000);
     }
   }
 
@@ -68,7 +77,12 @@ export default class UsuariosComponent implements OnInit {
       const token:any = localStorage.getItem('token');
       this.userService.deleteUser(id, token).subscribe(
         data => {
-          if(data.statuscode == 200) this.getUseer();
+          if(data.statuscode == 200) {
+            this.alert()
+            setTimeout(() => {
+              this.getUseer();
+            }, 2000);
+          }
         } 
       )
     }
@@ -103,4 +117,42 @@ export default class UsuariosComponent implements OnInit {
     }
   }
 
+  info(){
+      Swal.fire({
+        icon: "info",
+        title: "Porfavor llena todos los campos.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  
+    error(){
+      Swal.fire({
+        icon: "error",
+        title: "Opss...",
+        text:"Ocurrio un error al hacer el registro",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    
+    alert(){
+      Swal.fire({
+        icon: 'success',
+        title: 'Eliminacion Exitosa',
+        text: `El usuario ${this.user.nombre} se ah eliminado exitosamente`,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+    success(){
+      Swal.fire({
+        icon: 'success',
+        title: 'Busqueda Exitosa',
+        text: `los usuarios con el ${this.nombre} se han econtrado exitosamente`,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
 }
