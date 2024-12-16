@@ -9,45 +9,41 @@
                 <div class="grid grid-cols-2 gap-x-10 pl-10 pr-10">
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo</label>
-                        <input [value]="user.nombre"
-                        [(ngModel)]="formData.nombre" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="nombre">
+                        <input [value]="userData.user?.nombre"
+                        [(ngModel)]="userData.nombre" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="nombre">
                     </div>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Direccion<a href=""></a></label>
-                        <input [value]="user.street"
-                        [(ngModel)]="formData.street" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
+                        <input [value]="userData.user?.street"
+                        [(ngModel)]="userData.street" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
                     </div>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Imagen<a href=""></a></label>
-                        <input [value]="user.imgUrl"
-                        [(ngModel)]="formData.imgUrl" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
+                        <input [value]="userData.user?.imgUrl"
+                        [(ngModel)]="userData.imgUrl" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
                     </div>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Fecha<a href=""></a></label>
-                        <input [value]="user.fecha"
-                        [(ngModel)]="formData.fecha" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="date">                        
+                        <input [value]="userData.user?.fecha"
+                        [(ngModel)]="userData.fecha" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="date">                        
                     </div>
                     <div class=" mt-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Email<a href=""></a></label>
-                        <input [value]="user.email"
-                        [(ngModel)]="formData.email" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="email">                        
+                        <input [value]="userData.user?.email"
+                        [(ngModel)]="userData.email" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="email">                        
                     </div>
-                    @if (isAdmin) {
                         <div class=" mt-4 ">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Rol<a href=""></a></label>
-                            <select [value]="roles.name"
-                            [(ngModel)]="formData.rol" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
-                            <option value="" disabled selected>Selecciona un rol</option>
+                            <select [value]="userData.user?.rol.name"
+                            [(ngModel)]="userData.rol" name="rol" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="select">
                             <option value="ADMIN">ADMIN</option>
                             <option value="USER">USER</option>    
                         </select>
                         </div>
-                    }
                     <div class=" mt-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Estado<a href=""></a></label>
-                        <select [value]="user.estado"
-                        [(ngModel)]="formData.estado" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="text">                        
-                        <option value="" disabled selected>Selecciona un rol</option>
+                        <select [value]="userData.user?.estado"
+                        [(ngModel)]="userData.estado" name="estado" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="select">
                         <option value="Aprobado">Aprobado</option>
                         <option value="Rechazado">Rechazado</option>    
                         </select>
@@ -55,15 +51,9 @@
                 </div>
             </div>
             <div class="flex rounded-3xl bg-cyan-400 w-80 h-12 mb-10 border-b-2 border-gray-800 shadow-lg shadow-gray-600 items-center justify-center btn hover:bg-cyan-500">
-                @if (!isAuthenticated) {
-                <button  class="flex item-center text-xl text-bold text-white">
-                    Registrar
-                </button>
-                } @else if (isAdmin) {
-                <button  class="flex item-center text-xl text-bold text-white">
+                <button (click)="updateUser()" class="flex item-center text-xl text-bold text-white">
                     Actualizar
                 </button>
-                }
             </div>
         </div>
     </div>  

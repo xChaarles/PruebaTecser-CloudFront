@@ -45,6 +45,14 @@ export class UserService {
     return this.http.get<any>(url, {headers})
   }
 
+  updateUser(id:string, formData:any, token:string):Observable<any>{
+    const url = `${this.api}/admin/updateUser/${id}`
+    const headers = new HttpHeaders ({
+      'Authorization' :`Bearer ${token}`
+    });
+    return this.http.put<any>(url, formData, {headers})
+  }
+
   deleteUser(id:string, token:string):Observable<any>{
     const url = `${this.api}/admin/deleteUser/${id}`
     const headers = new HttpHeaders ({

@@ -18,21 +18,11 @@ export default class UpdateUserComponent implements OnInit {
   isAdmin:boolean = false;
   isUser:boolean = false;
 
-  formData: any = {
-    nombre: '',
-    street: '',
-    email: '',
-    imgUrl: '',
-    fecha: '',
-    estado:'',
-    password: '',
-    rol: ''
-  };
+  userData: any = {};
   
   roles:any = {};
   id:any;
-  user: any = {};
-  selectedOption: string = this.user.estado;
+  selectedOption: string;
   selectedOption1: string;
 
   constructor(private userService:UserService,
@@ -53,13 +43,37 @@ export default class UpdateUserComponent implements OnInit {
     const token:any = localStorage.getItem('token');
     this.userService.getUserById(this.id, token).subscribe(
       data => {
-        console.log(data)
-        this.user = data.user
-        this.roles = data.user.rol
-        console.log(this.roles)
+        let userData = data;
+        const {nombre, street, imgUrl, email, fecha, estado, rol} = userData.user;
+        this.userData = {nombre, street, imgUrl, email, fecha, estado, rol};
+        console.log(this.userData)
+      }
+    )
+  }
+
+  updateUser(){
+    this.id = this.route.snapshot.paramMap.get('id');
+    const token:any = localStorage.getItem('token');
+
+    if(!this.userData.nombre || !this.userData.street || !this.userData.email || !this.userData.imgUrl ||
+      !this.userData.fecha || !this.userData.estado || !this.userData.rol ){
+      this.showError("Por favor, rellene todos los campos")
+    }
+
+    this.userService.updateUser(this.id, this.userData,  token).subscribe(
+      data=> {
+        if (data.statuscode = 200) { 
+          this.router.navigate(['/perfil/userlist']) }
       }
     )
 
+  }
+
+  showError(message: string) {
+    this.mensaje = message;
+    setTimeout(() => {
+      this.mensaje = ''; // Borrar el mensaje de error después del tiempo especificado
+    }, 3000);
   }
 
 }
