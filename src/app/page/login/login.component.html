@@ -1,0 +1,29 @@
+<div class="lg:pt-8 pt-4">
+    <div class="flex flex-col bg-gray-200 rounded-lg shadow-lg shadow-gray-600 overflow-hidden mx-auto max-w-sm lg:max-w-4xl    ">
+        <div class="flex justify-center items-center">
+            <div class="w-full p-8 lg:w-1/2">
+                <div class="flex flex-col justify-center items-center">
+                    <h1 class="text-black text-2xl">iniciar Sesion</h1>
+                    <h3 class="text-red-600 text-lg">{{ mensaje }}</h3>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Usuario</label>
+                    <input [(ngModel)]="email" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="email">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña<a href=""></a></label>
+                    <input [(ngModel)]="password" class="bg-white rounded-xl text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 py-2 px-4 block w-full appearance-none" type="password">
+                    <div class="flex justify-end gap-x-3">
+                        <p>Recuerdame</p>
+                        <a href="" class="">Restablecer Contraseña</a>
+                    </div>
+                    <div class="flex rounded-3xl bg-cyan-400 w-80 h-12 mt-10 mb-10 border-b-2 border-gray-800 shadow-lg shadow-gray-600 items-center justify-center btn hover:bg-cyan-500">
+                        <button (click)="login()" class="flex item-center text-xl text-bold text-white">
+                            Ingresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
